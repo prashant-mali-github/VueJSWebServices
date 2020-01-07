@@ -1,14 +1,24 @@
 <template>
-    <div>
-        <ul class="nav nav-pills">
-            <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-            <router-link to="/addUser" tag="li" active-class="active"><a>Add Employee</a></router-link>
-            <router-link to="/showEmployees" tag="li" active-class="active"><a>Show Employees</a></router-link>
-            <!-- <router-link to="/edit/:id" tag="li" active-class="active"><a>EditEmployee</a></router-link> -->
-        </ul>
-    </div>
+    <b-navbar>
+        <template slot="start">
+            <b-navbar-item>
+               <router-link to="/" active-class="active" exact><a>Home</a></router-link>
+            </b-navbar-item>
+            <b-navbar-item>
+                <router-link to="/addUser" active-class="active"><a>Add Employee</a></router-link>
+            </b-navbar-item>
+            <!-- <b-navbar-item>
+                <router-link to="/showEmployees" active-class="active"><a>Show Employees</a></router-link>
+            </b-navbar-item> -->
+            <b-navbar-item>
+                <router-link to="/pagination" active-class="active"><a>Pagination</a></router-link>
+            </b-navbar-item>
+            <b-navbar-item>
+                <router-link to="/allpagination" active-class="active"><a>All Pagination</a></router-link>
+            </b-navbar-item>
+        </template>
+    </b-navbar>
 </template>
-
 <script>
 export default {
     

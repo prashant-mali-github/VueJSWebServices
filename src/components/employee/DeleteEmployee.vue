@@ -18,9 +18,9 @@
         created(){
             this.id = this.$route.params.id // id of the article
             this.$http.delete(`http://dummy.restapiexample.com/api/v1/delete/${this.id}`)
-                .then(_ => {
-                    console.log(this.id)
-                this.$router.push('/showEmployees')
+                .then(() => {
+                    // console.log(this.id)
+                this.$router.push('/allpagination')
                 })
                 .catch(err => {
                 // eslint-disable-next-line

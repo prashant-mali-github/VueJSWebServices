@@ -4,10 +4,12 @@ import App from './App.vue'
 import { routes } from './routes';
 import VueResource from 'vue-resource';
 import VueSweetalert2 from 'vue-sweetalert2';
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+
+Vue.use(Buefy)
 
 Vue.use(VueResource)
-
-
 Vue.use(VueRouter);
 Vue.use(VueSweetalert2);
 

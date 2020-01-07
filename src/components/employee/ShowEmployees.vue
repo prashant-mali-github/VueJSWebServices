@@ -73,9 +73,6 @@
                         }
                         this.users = usersArray
                         // console.log(this.users)
-                    }
-                    , err =>{
-                        console.log(err)
                     })
             },
             // deleteEmployee(){

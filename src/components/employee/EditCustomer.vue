@@ -4,13 +4,16 @@
         <!-- <router-link to="/delete/:id" tag="li" active-class="active"></router-link> -->
        <section>
         <b-field label="Name">
-            <b-input v-model="employee.name" :value="u.employee_name"></b-input>
+            <b-input v-model="employee.customer_name" :value="props.customer_name"></b-input>
         </b-field>
         <b-field label="Salary">
-            <b-input v-model="employee.salary" :value="u.employee_salary"></b-input>
+            <b-input v-model="employee.c_address" value="c_address"></b-input>
         </b-field>
         <b-field label="Age">
-            <b-input v-model="employee.age" :value="u.employee_age"></b-input>
+            <b-input v-model="employee.c_email" value="c_email"></b-input>
+        </b-field>
+        <b-field label="Age">
+            <b-input v-model="employee.c_mobileno" value="c_mobileno"></b-input>
         </b-field>
         <b-button @click ="Update" class="btn btn-primary">Edit Customer</b-button>
         </section>
@@ -24,12 +27,14 @@
             return {
                 employee: 
                 {
-                    name: "",
-                    salary: "",
-                    age: "",
+                    customer_name: "",
+                    c_address: "",
+                    c_email: "",
+                    c_mobileno:""
                 },
                 id:'',
-                users: []
+                users: [],
+                props:['props']
             }
         },
         methods: {

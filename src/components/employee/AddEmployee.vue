@@ -1,7 +1,23 @@
 <template>
+    <section>
+        <b-field label="Name">
+            <b-input v-model="employee.name"></b-input>
+        </b-field>
+        <b-field label="Salary">
+            <b-input v-model="employee.salary"></b-input>
+        </b-field>
+        <b-field label="Age">
+            <b-input v-model="employee.age"></b-input>
+        </b-field>
+        <b-button @click ="submit" class="btn btn-primary">Add Customer</b-button>
+    </section>
+</template>
+<!--
+<template>
     <div>
         <h1>Add Employee Page</h1>
         <hr>
+        <section>
         <div class="container">
             <div class="col-xs-12">
                 <div class="form-group">
@@ -16,16 +32,16 @@
                     <label for="">Age</label>
                     <input type="text" v-model="employee.age" class="form-group" required >
                 </div>
-                    <button @click ="submit" class="btn btn-primary">Add Customer</button>
+                    <b-button @click ="submit" class="btn btn-primary">Add Customer</b-button>
                 </div>
             </div>
         <hr>
         <button @click="navigateToHome" class="btn btn-primary">Back to home</button>
         <hr>
-        <!-- <router-view></router-view> -->
+        </section>
     </div>
 </template>
-
+-->
 <script>
     export default {
         data(){
@@ -45,24 +61,24 @@
             submit(){
                 // console.log(this.user);
                 this.$http.post('http://dummy.restapiexample.com/api/v1/create', this.employee)
-                //  .then(_ => {
-                //     this.$router.push('/showEmployees')
-                //  })
-                // .catch(err => {
-                //     // eslint-disable-next-line
-                //     console.log(err)
-                // })
-
-                .then(res =>{
-                    console.log(res.json())
-                    console.log(this.user)
-                })
-                .then(_ =>{
+                 .then(() => {
                     this.$router.push('/showEmployees')
-                })
-                .catch(err =>{
+                 })
+                .catch(err => {
+                    // eslint-disable-next-line
                     console.log(err)
                 })
+
+                // .then(res =>{
+                //     console.log(res.json())
+                //     console.log(this.user)
+                // })
+                // .then(_ =>{
+                //     this.$router.push('/showEmployees')
+                // })
+                // .catch(err =>{
+                //     console.log(err)
+                // })
             }
         }
     }

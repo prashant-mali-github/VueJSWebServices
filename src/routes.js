@@ -5,6 +5,9 @@ import AddEmployee from './components/employee/AddEmployee.vue';
 import DeleteEmployee from './components/employee/DeleteEmployee.vue';
 import ShowEmployee from './components/employee/ShowEmployees.vue';
 import EditEmployee from './components/employee/EditEmployee.vue'
+import ShowPagination from './components/employee/ShowPagination.vue'
+import AllPagination from './components/employee/AllPagination.vue'
+import EditC from './components/employee/EditCustomer.vue'
 
 export const routes = [
     { path: '', name: 'home', components: {
@@ -25,10 +28,16 @@ export const routes = [
     { path: '*', redirect: '/' },
     { path:'/addUser', name:'addUser', components:{
         default: AddEmployee, 'header-top': Header } },
+    { path:'/allpagination', name:'allpagination', components:{
+        default: AllPagination, 'header-top': Header } },
+    { path:'/pagination', name:'pagination', components:{
+        default: ShowPagination, 'header-top': Header } },
     { path:'/u/edit/:id', name:'editUser', components:{
-        default: EditEmployee, 'header-top': Header } },
+        default: EditEmployee, 'header-top': Header },props: { u: true }},
+    { path:'/editc/:u/:id', name:'editCUser', components:{
+        default: EditC, 'header-top': Header }, props:true},
     { path:'/showEmployees', name:'showEmployees', components:{
         default: ShowEmployee, 'header-top': Header } },
-    { path:'/u/delete/:id', name:'deleteUser', component:DeleteEmployee }
+    { path:'/u/delete/:id', name:'deleteUser', component:DeleteEmployee ,props: { u: true }}
 
 ];
