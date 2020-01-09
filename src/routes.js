@@ -32,8 +32,8 @@ export const routes = [
         default: AllPagination, 'header-top': Header } },
     { path:'/pagination', name:'pagination', components:{
         default: ShowPagination, 'header-top': Header } },
-    { path:'/u/edit/:id', name:'editUser', components:{
-        default: EditEmployee, 'header-top': Header },props: { u: true }},
+    { path:'/edit/:id', name:'editUser', components:{
+        default: EditEmployee, 'header-top': Header }, props:true},
     { path:'/editc/:u/:id', name:'editCUser', components:{
         default: EditC, 'header-top': Header }, props:true},
     { path:'/showEmployees', name:'showEmployees', components:{

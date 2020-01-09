@@ -4,7 +4,7 @@
         <!-- <router-link to="/delete/:id" tag="li" active-class="active"></router-link> -->
        <section>
         <b-field label="Name">
-            <b-input v-model="employee.customer_name" :value="props.customer_name"></b-input>
+            <b-input v-model="employee.customer_name" :value="props.row.customer_name"></b-input>
         </b-field>
         <b-field label="Salary">
             <b-input v-model="employee.c_address" value="c_address"></b-input>

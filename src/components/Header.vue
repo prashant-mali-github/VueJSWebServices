@@ -10,11 +10,11 @@
             <!-- <b-navbar-item>
                 <router-link to="/showEmployees" active-class="active"><a>Show Employees</a></router-link>
             </b-navbar-item> -->
-            <b-navbar-item>
+            <!-- <b-navbar-item>
                 <router-link to="/pagination" active-class="active"><a>Pagination</a></router-link>
-            </b-navbar-item>
+            </b-navbar-item> -->
             <b-navbar-item>
-                <router-link to="/allpagination" active-class="active"><a>All Pagination</a></router-link>
+                <router-link to="/allpagination" active-class="active"><a>Show Employee</a></router-link>
             </b-navbar-item>
         </template>
     </b-navbar>

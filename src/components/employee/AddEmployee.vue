@@ -1,15 +1,15 @@
 <template>
     <section>
         <b-field label="Name">
-            <b-input v-model="employee.name"></b-input>
+            <b-input v-model="employee.name" type="text"></b-input>
         </b-field>
         <b-field label="Salary">
-            <b-input v-model="employee.salary"></b-input>
+            <b-input v-model="employee.salary" type="text"></b-input>
         </b-field>
         <b-field label="Age">
-            <b-input v-model="employee.age"></b-input>
+            <b-input v-model="employee.age" type="text"></b-input>
         </b-field>
-        <b-button @click ="submit" class="btn btn-primary">Add Customer</b-button>
+        <b-button @click ="submit" type="is-success">Add Customer</b-button>
     </section>
 </template>
 <!--
@@ -58,10 +58,17 @@
             navigateToHome() {
                 this.$router.push({ name: 'home' });
             },
+            success() {
+            this.$buefy.toast.open({
+                message: 'Employee Added',
+                type: 'is-success'
+            })
+            },
             submit(){
                 // console.log(this.user);
                 this.$http.post('http://dummy.restapiexample.com/api/v1/create', this.employee)
                  .then(() => {
+                     this.success();
                     this.$router.push('/showEmployees')
                  })
                 .catch(err => {
