@@ -69,7 +69,7 @@
                 this.$http.post('http://dummy.restapiexample.com/api/v1/create', this.employee)
                  .then(() => {
                      this.success();
-                    this.$router.push('/showEmployees')
+                    this.$router.push('/allpagination')
                  })
                 .catch(err => {
                     // eslint-disable-next-line

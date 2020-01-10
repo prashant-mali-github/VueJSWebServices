@@ -1,5 +1,6 @@
 <template>
     <section>
+
         <b-field grouped group-multiline>
             <!-- <b-select v-model="defaultSortDirection">
                 <option value="asc">Default sort direction: ASC</option>
@@ -75,6 +76,20 @@
                     <router-link
                     :to="'/u/delete/' + props.row.id"
                     style="cursor: pointer"><b-button type="is-danger">Delete</b-button></router-link>
+                    &nbsp;&nbsp;&nbsp;
+                    <router-link
+                    :to="'/editcard/' + props.row.id">
+                       <button class="button is-primary is-medium"
+                        @click="isComponentModalActive = true">
+                        Launch component modal
+                    </button>
+                    <b-modal :active.sync="isComponentModalActive"
+                            has-modal-card
+                            trap-focus
+                            aria-role="dialog"
+                            aria-modal>
+                        <modal-form v-bind="formProps"></modal-form>
+                    </b-modal></router-link>
                 </b-table-column>   
             </template>
         </b-table>
@@ -82,6 +97,7 @@
 </template>
 
 <script>
+    import ModalForm from './FormComponent.vue'
     export default {
         data() {
             return {
@@ -93,8 +109,16 @@
                 sortIcon: 'arrow-up',
                 sortIconSize: 'is-small',
                 currentPage: 1,
-                perPage: 5
+                perPage: 5,
+                isComponentModalActive: false,
+                formProps: {
+                    email: 'evan@you.com',
+                    password: 'testing'
+                }
             }
+        },
+        components: {
+            ModalForm
         },
         created(){
             this.showAll()
@@ -115,6 +139,15 @@
                         // console.log(this.users)
                     })
             },
+             cardModal() {
+                this.$buefy.modal.open({
+                    parent: this,
+                    component: ModalForm,
+                    hasModalCard: true,
+                    customClass: 'custom-class custom-class-2',
+                    trapFocus: true
+                })
+            }
         }
     }
 </script>
