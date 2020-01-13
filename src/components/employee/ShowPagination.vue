@@ -32,31 +32,30 @@
 
            <template slot-scope="props">
                 <b-table-column field="id" label="ID" width="40" sortable numeric>
-                    {{ props.row.c_id }}
+                    {{ props.row.id }}
                 </b-table-column>
 
-                <b-table-column field="Name" label="Name" sortable>
-                    {{ props.row.customer_name }}
+                <b-table-column field="employee_name" label="Name" sortable>
+                    {{ props.row.employee_name }}
                 </b-table-column>
 
-                <b-table-column field="c_address" label="Address" sortable>
-                    {{ props.row.c_address }}
+                <b-table-column field="employee_salary" label="Salary" sortable>
+                    {{ props.row.employee_salary }}
                 </b-table-column>
-                <b-table-column field="c_email" label="Email" sortable>
-                    {{ props.row.c_email }}
+                <b-table-column field="employee_age" label="Age" sortable>
+                    {{ props.row.employee_age }}
                 </b-table-column>
-                <b-table-column field="c_mobileno" label="Contact No" sortable>
+                <!-- <b-table-column field="c_mobileno" label="Contact No" sortable>
                     {{ props.row.c_mobileno }}
-                </b-table-column>
+                </b-table-column> -->
                 <b-table-column  label="Actions">
                     <router-link
-                                tag="button"
-                                :to="'/editc/props/' + props.row.c_id"
-                                style="cursor: pointer"><b-button>Edit</b-button></router-link>
+                                :to="'/edit/' + props.row.id"
+                                style="cursor: pointer"><b-button type="is-success">Edit</b-button></router-link>
                     <router-link
-                    tag="button"
-                    :to="'/:u/delete/' + props.row.id"
-                    style="cursor: pointer"><b-button>Delete</b-button></router-link>
+                    :to="'/u/delete/' + props.row.id"
+                    style="cursor: pointer"><b-button type="is-danger">Delete</b-button></router-link>
+                    &nbsp;&nbsp;&nbsp;
                 </b-table-column>   
             </template>
         </b-table>
@@ -108,7 +107,7 @@
         },
         methods:{
             showAll() {
-                this.$http.get('http://prashantrestapi.herokuapp.com/api/customers/')
+                this.$http.get('http://dummy.restapiexample.com/api/v1/employees')
                     .then(res => {
                         
                         return res.json()

@@ -8,7 +8,11 @@ import EditEmployee from './components/employee/EditEmployee.vue'
 import ShowPagination from './components/employee/ShowPagination.vue'
 import AllPagination from './components/employee/AllPagination.vue'
 //import EditC from './components/employee/EditCustomer.vue'
-import EditCard from './components/employee/CardEditEmployee.vue'
+// import EditCard from './components/employee/CardEditEmployee.vue'
+// import User from './components/employee/User.vue'
+import View from './components/employee/View.vue'
+
+
 
 export const routes = [
     { path: '', name: 'home', components: {
@@ -35,8 +39,10 @@ export const routes = [
         default: ShowPagination, 'header-top': Header } },
     { path:'/edit/:id', name:'editUser', components:{
         default: EditEmployee, 'header-top': Header }, props:true},
-    { path:'/editcard/:id', name:'editcard', components:{
-        default: EditCard, 'header-top': Header }, props:true},
+    { path:'/view/:id', name:'viewemployee', components:{
+        default: View, 'header-top': Header }, props:true},
+    // { path:'/editcard/:id', name:'editcard', components:{
+    //     default: EditCard, 'header-top': Header }, props:true},
     // { path:'/editc/:u/:id', name:'editCUser', components:{
     //     default: EditC, 'header-top': Header }, props:true},
     { path:'/showEmployees', name:'showEmployees', components:{

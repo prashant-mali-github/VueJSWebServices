@@ -40,7 +40,7 @@
         </b-field>
 
         <b-table
-            :data="data"
+            :data="data[1]"
             :paginated="isPaginated"
             :per-page="perPage"
             :current-page.sync="currentPage"
@@ -69,27 +69,27 @@
                 <b-table-column field="employee_age" label="Age" sortable>
                     {{ props.row.employee_age }}
                 </b-table-column>
+
                 <b-table-column  label="Actions">
+                     <b-button type="is-success"
+                        @click="isComponentModalActive = true">
+                        View
+                    </b-button>
+                    <b-modal :active.sync="isComponentModalActive"
+                            has-modal-card
+                            trap-focus
+                            aria-role="dialog"
+                            aria-modal>
+                        <modal-form :name="props.row.employee_name" :salary="props.row.employee_salary" :age="props.row.employee_age"></modal-form>
+                    </b-modal>
                     <router-link
                                 :to="'/edit/' + props.row.id"
                                 style="cursor: pointer"><b-button type="is-success">Edit</b-button></router-link>
                     <router-link
                     :to="'/u/delete/' + props.row.id"
                     style="cursor: pointer"><b-button type="is-danger">Delete</b-button></router-link>
+
                     &nbsp;&nbsp;&nbsp;
-                    <router-link
-                    :to="'/editcard/' + props.row.id">
-                       <button class="button is-primary is-medium"
-                        @click="isComponentModalActive = true">
-                        Launch component modal
-                    </button>
-                    <b-modal :active.sync="isComponentModalActive"
-                            has-modal-card
-                            trap-focus
-                            aria-role="dialog"
-                            aria-modal>
-                        <modal-form v-bind="formProps"></modal-form>
-                    </b-modal></router-link>
                 </b-table-column>   
             </template>
         </b-table>
@@ -102,6 +102,9 @@
         data() {
             return {
                 data:[],
+                name:'',
+                salary:'',
+                age:'',
                 isPaginated: true,
                 isPaginationSimple: false,
                 paginationPosition: 'bottom',
@@ -112,16 +115,28 @@
                 perPage: 5,
                 isComponentModalActive: false,
                 formProps: {
-                    email: 'evan@you.com',
-                    password: 'testing'
+                    name: this.name,
+                    salary:this.salary,
+                    age: this.age
                 }
             }
         },
-        components: {
-            ModalForm
-        },
         created(){
             this.showAll()
+        },
+        components:{
+            ModalForm
+        },
+            mounted() {
+            this.id = this.$route.params.id // id of the article
+            //this.fetchData(this.id)
+            this.$http.get(`http://dummy.restapiexample.com/api/v1/employee/${this.id}`)
+            .then(response => {
+                // this.info = response.data.data
+                this.name =  response.data.data.employee_name
+                this.salary = response.data.data.employee_salary
+                this.age =  response.data.data.employee_age
+            })
         },
         methods:{
             showAll() {
@@ -138,15 +153,6 @@
                         this.data = usersArray
                         // console.log(this.users)
                     })
-            },
-             cardModal() {
-                this.$buefy.modal.open({
-                    parent: this,
-                    component: ModalForm,
-                    hasModalCard: true,
-                    customClass: 'custom-class custom-class-2',
-                    trapFocus: true
-                })
             }
         }
     }

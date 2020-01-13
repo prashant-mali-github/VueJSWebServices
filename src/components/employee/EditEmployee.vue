@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Edit Employee Page</h1>
-        <p> {{ this.info }}</p>
+        <!-- <p> {{ this.info }}</p> -->
         <!-- <router-link to="/delete/:id" tag="li" active-class="active"></router-link> -->
        <section>
         <b-field label="Name">
@@ -38,10 +38,10 @@
             //this.fetchData(this.id)
             this.$http.get(`http://dummy.restapiexample.com/api/v1/employee/${this.id}`)
             .then(response => {
-           // this.info = response.data
-            this.employee.name =  response.data.employee_name
-            this.employee.salary = response.data.employee_salary
-            this.employee.age =  response.data.employee_age
+                this.info = response.data.data
+                this.employee.name =  response.data.data.employee_name
+                this.employee.salary = response.data.data.employee_salary
+                this.employee.age =  response.data.data.employee_age
             })
         },
         methods: {
