@@ -1,6 +1,8 @@
 <template>
     <section>
-
+        <b-field label="Demo">
+            {{ user }}
+        </b-field>
         <b-field grouped group-multiline>
             <!-- <b-select v-model="defaultSortDirection">
                 <option value="asc">Default sort direction: ASC</option>
@@ -66,12 +68,14 @@
                 <b-table-column field="employee_salary" label="Salary" sortable>
                     {{ props.row.employee_salary }}
                 </b-table-column>
+
                 <b-table-column field="employee_age" label="Age" sortable>
                     {{ props.row.employee_age }}
                 </b-table-column>
-
-                <b-table-column  label="Actions">
-                     <b-button type="is-success"
+                <b-table-column label="View">
+                    <router-link
+                                :to="{name:'viewemployee', params: {id: props.row.id,  user: props.row}}">
+                    <b-button type="is-success"
                         @click="isComponentModalActive = true">
                         View
                     </b-button>
@@ -80,16 +84,16 @@
                             trap-focus
                             aria-role="dialog"
                             aria-modal>
-                        <modal-form :name="props.row.employee_name" :salary="props.row.employee_salary" :age="props.row.employee_age"></modal-form>
-                    </b-modal>
+                        <modal-form v-bind="formProps"></modal-form>
+                    </b-modal></router-link>
+                </b-table-column>
+                <b-table-column label="Actions">
                     <router-link
-                                :to="'/edit/' + props.row.id"
+                                :to="{name:'editUser', params: {id: props.row.id, user: props.row}}"
                                 style="cursor: pointer"><b-button type="is-success">Edit</b-button></router-link>
                     <router-link
                     :to="'/u/delete/' + props.row.id"
                     style="cursor: pointer"><b-button type="is-danger">Delete</b-button></router-link>
-
-                    &nbsp;&nbsp;&nbsp;
                 </b-table-column>   
             </template>
         </b-table>
@@ -102,9 +106,10 @@
         data() {
             return {
                 data:[],
-                name:'',
-                salary:'',
-                age:'',
+                // name:'',
+                // salary:'',
+                // age:'',
+                // user:'',
                 isPaginated: true,
                 isPaginationSimple: false,
                 paginationPosition: 'bottom',
@@ -115,28 +120,18 @@
                 perPage: 5,
                 isComponentModalActive: false,
                 formProps: {
-                    name: this.name,
-                    salary:this.salary,
-                    age: this.age
+                    name: '',
+                    salary: '',
+                    age: ''
                 }
             }
         },
         created(){
             this.showAll()
         },
+        props:['user'],
         components:{
             ModalForm
-        },
-            mounted() {
-            this.id = this.$route.params.id // id of the article
-            //this.fetchData(this.id)
-            this.$http.get(`http://dummy.restapiexample.com/api/v1/employee/${this.id}`)
-            .then(response => {
-                // this.info = response.data.data
-                this.name =  response.data.data.employee_name
-                this.salary = response.data.data.employee_salary
-                this.age =  response.data.data.employee_age
-            })
         },
         methods:{
             showAll() {
@@ -153,6 +148,15 @@
                         this.data = usersArray
                         // console.log(this.users)
                     })
+                    this.load_data();
+            },
+            load_data(){
+                 this.id = this.$route.params.id// id of the article
+                // this.info = this.$route.params.user.id
+                //this.fetchData(this.id)
+                this.formProps.name =   this.$route.params.user.employee_name
+                this.formProps.salary =  this.$route.params.user.employee_salary
+                this.formProps.age =   this.$route.params.user.employee_age
             }
         }
     }

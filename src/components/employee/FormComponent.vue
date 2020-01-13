@@ -5,6 +5,7 @@
                         <p class="modal-card-title">Employee Details</p>
                     </header>
                     <section class="modal-card-body">
+
                         <b-field label="Name">
                             <b-input
                                 type="text"
@@ -31,8 +32,8 @@
                         </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button" type="button" @click="$parent.close()">Close</button>
-                        <!-- <button class="button is-primary">Login</button> -->
+                        <button class="button" type="button" @click="$parent.close(); backTo()">Close</button>
+                         <!-- <button class="button is-primary">Login</button> -->
                     </footer>
                 </div>
             </form>
@@ -40,7 +41,12 @@
 
 <script>
 export default {
-     props: ['name', 'salary', 'age']
+    props:['name', 'salary', 'age'],
+    methods:{
+        backTo(){
+            this.$router.push('/allpagination')
+        }
+    }
 }
 </script>
 

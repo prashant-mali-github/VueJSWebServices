@@ -10,7 +10,8 @@ import AllPagination from './components/employee/AllPagination.vue'
 //import EditC from './components/employee/EditCustomer.vue'
 // import EditCard from './components/employee/CardEditEmployee.vue'
 // import User from './components/employee/User.vue'
-import View from './components/employee/View.vue'
+// import View from './components/employee/View.vue'
+// import Form from './components/employee/FormComponent.vue'
 
 
 
@@ -40,7 +41,7 @@ export const routes = [
     { path:'/edit/:id', name:'editUser', components:{
         default: EditEmployee, 'header-top': Header }, props:true},
     { path:'/view/:id', name:'viewemployee', components:{
-        default: View, 'header-top': Header }, props:true},
+        default: AllPagination, 'header-top': Header }, props:true},
     // { path:'/editcard/:id', name:'editcard', components:{
     //     default: EditCard, 'header-top': Header }, props:true},
     // { path:'/editc/:u/:id', name:'editCUser', components:{
