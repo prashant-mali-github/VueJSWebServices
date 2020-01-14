@@ -1,17 +1,24 @@
 <template>
     <section>
+        <b-field label="Id">
+            <b-input v-model="employee.id" type="text"></b-input>
+        </b-field>
         <b-field label="Name">
-            <b-input v-model="employee.name" type="text"></b-input>
+            <b-input v-model="employee.employee_name" type="text"></b-input>
         </b-field>
         <b-field label="Salary">
-            <b-input v-model="employee.salary" type="text"></b-input>
+            <b-input v-model="employee.employee_salary" type="text"></b-input>
         </b-field>
         <b-field label="Age">
-            <b-input v-model="employee.age" type="text"></b-input>
+            <b-input v-model="employee.employee_age" type="text"></b-input>
         </b-field>
-        <b-button @click ="submit" type="is-success">Add Customer</b-button>
+        <p> {{ employees }} </p>
+            
+        <!-- <b-button @click ="submit" type="is-success">Add Customer</b-button> -->
+        <b-button @click ="fileSubmit" type="is-success">Add Customer</b-button>
     </section>
 </template>
+
 <!--
 <template>
     <div>
@@ -43,15 +50,20 @@
 </template>
 -->
 <script>
+    import json from "D:/VueJSWebServices/src/assets/index.json";
+    import { savefile } from './../../main.js'
     export default {
         data(){
             return {
                 employee: 
                 {
-                    name: "",
-                    salary: "",
-                    age: "",
-                }
+                    id:'',
+                    employee_name: "",
+                    employee_salary: "",
+                    employee_age: "",
+                },
+                employees:json.data,
+                msg:''
             }
         },
         methods: {
@@ -75,7 +87,12 @@
                     // eslint-disable-next-line
                     console.log(err)
                 })
-
+            },
+            // file manipulation
+            fileSubmit(){
+                savefile(this.employee);
+                this.success();
+            }
                 // .then(res =>{
                 //     console.log(res.json())
                 //     console.log(this.user)
@@ -86,7 +103,7 @@
                 // .catch(err =>{
                 //     console.log(err)
                 // })
-            }
+            
         }
     }
 </script>

@@ -6,6 +6,8 @@ import VueResource from 'vue-resource';
 import VueSweetalert2 from 'vue-sweetalert2';
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+const fs = require("fs");
+
 
 Vue.use(Buefy)
 
@@ -17,6 +19,11 @@ const router = new VueRouter({
   routes,
   mode: 'history'
 });
+
+export const savefile = (array) =>{
+  let data = JSON.stringify(array);
+  fs.writeFileSync("data.json", data);
+}
 
 // const vue_resource = new VueResource()
 new Vue({

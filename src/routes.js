@@ -1,4 +1,4 @@
-import Home from './components/Home.vue';
+// import Home from './components/Home.vue';
 import Header from './components/Header.vue';
 import AddEmployee from './components/employee/AddEmployee.vue';
 // import EditEmployee from './components/employee/EditEmployee.vue';
@@ -16,8 +16,8 @@ import AllPagination from './components/employee/AllPagination.vue'
 
 
 export const routes = [
-    { path: '', name: 'home', components: {
-        default: Home,
+    { path: '', name: 'allpagination', components: {
+        default: AllPagination,
         'header-top': Header
     } },
     // { path: '/user', components: {
@@ -42,6 +42,7 @@ export const routes = [
         default: EditEmployee, 'header-top': Header }, props:true},
     { path:'/view/:id', name:'viewemployee', components:{
         default: AllPagination, 'header-top': Header }, props:true},
+        
     // { path:'/editcard/:id', name:'editcard', components:{
     //     default: EditCard, 'header-top': Header }, props:true},
     // { path:'/editc/:u/:id', name:'editCUser', components:{

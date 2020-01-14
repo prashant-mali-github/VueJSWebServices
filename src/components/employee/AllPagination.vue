@@ -1,8 +1,5 @@
 <template>
     <section>
-        <b-field label="Demo">
-            {{ user }}
-        </b-field>
         <b-field grouped group-multiline>
             <!-- <b-select v-model="defaultSortDirection">
                 <option value="asc">Default sort direction: ASC</option>
@@ -14,8 +11,9 @@
                 <option value="15">15 per page</option>
                 <option value="20">20 per page</option>
             </b-select>
+            <b-button @click="addNew" type="is-success">Add New</b-button>
             <!-- <div class="control"> -->
-                <button class="button" @click="currentPage = 2" :disabled="!isPaginated">Set page to 2</button>
+                <!-- <button class="button" @click="currentPage = 2" :disabled="!isPaginated">Set page to 2</button> -->
             <!-- </div> -->
             <!-- <div class="control is-flex">
                 <b-switch v-model="isPaginated">Paginated</b-switch>
@@ -51,6 +49,7 @@
             :default-sort-direction="defaultSortDirection"
             :sort-icon="sortIcon"
             :sort-icon-size="sortIconSize"
+            :mobile-cards="false"
             aria-next-label="Next page"
             aria-previous-label="Previous page"
             aria-page-label="Page"
@@ -73,10 +72,8 @@
                     {{ props.row.employee_age }}
                 </b-table-column>
                 <b-table-column label="View">
-                    <router-link
-                                :to="{name:'viewemployee', params: {id: props.row.id,  user: props.row}}">
                     <b-button type="is-success"
-                        @click="isComponentModalActive = true">
+                        @click="isComponentModalActive = true;load_data(props.row)">
                         View
                     </b-button>
                     <b-modal :active.sync="isComponentModalActive"
@@ -85,7 +82,7 @@
                             aria-role="dialog"
                             aria-modal>
                         <modal-form v-bind="formProps"></modal-form>
-                    </b-modal></router-link>
+                    </b-modal>
                 </b-table-column>
                 <b-table-column label="Actions">
                     <router-link
@@ -110,6 +107,7 @@
                 // salary:'',
                 // age:'',
                 // user:'',
+                baseUrl: process.env.VUE_APP_BASE_URL,
                 isPaginated: true,
                 isPaginationSimple: false,
                 paginationPosition: 'bottom',
@@ -120,16 +118,15 @@
                 perPage: 5,
                 isComponentModalActive: false,
                 formProps: {
-                    name: '',
-                    salary: '',
-                    age: ''
+                    name: "",
+                    salary: "",
+                    age: ""
                 }
             }
         },
         created(){
-            this.showAll()
-        },
-        props:['user'],
+            this.fetchData()
+        }, 
         components:{
             ModalForm
         },
@@ -148,15 +145,31 @@
                         this.data = usersArray
                         // console.log(this.users)
                     })
-                    this.load_data();
             },
-            load_data(){
-                 this.id = this.$route.params.id// id of the article
-                // this.info = this.$route.params.user.id
-                //this.fetchData(this.id)
-                this.formProps.name =   this.$route.params.user.employee_name
-                this.formProps.salary =  this.$route.params.user.employee_salary
-                this.formProps.age =   this.$route.params.user.employee_age
+            load_data(data){
+                {
+                    this.formProps.name =   data.employee_name
+                    this.formProps.salary =  data.employee_salary
+                    this.formProps.age =   data.employee_age   
+                }
+            },
+            addNew(){
+                 this.$router.push('/addUser')
+            },
+            fetchData(){
+                this.$http.get('./../../data/index.json')
+                    .then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        const usersArray = [];
+                        // console.log(data.customers)
+                        for(let key in data){
+                            usersArray.push(data[key])
+                        }
+                        this.data = usersArray
+                        // console.log(this.users)
+                    })
             }
         }
     }

@@ -32,7 +32,7 @@
                         </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button" type="button" @click="$parent.close(); backTo()">Close</button>
+                        <button class="button" type="button" @click="$parent.close()">Close</button>
                          <!-- <button class="button is-primary">Login</button> -->
                     </footer>
                 </div>

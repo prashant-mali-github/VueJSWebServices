@@ -1,12 +1,12 @@
 <template>
     <b-navbar>
         <template slot="start">
-            <b-navbar-item>
+            <!-- <b-navbar-item>
                <router-link to="/" active-class="active" exact><a>Home</a></router-link>
             </b-navbar-item>
             <b-navbar-item>
                 <router-link to="/addUser" active-class="active"><a>Add Employee</a></router-link>
-            </b-navbar-item>
+            </b-navbar-item> -->
             <!-- <b-navbar-item>
                 <router-link to="/showEmployees" active-class="active"><a>Show Employees</a></router-link>
             </b-navbar-item> -->
