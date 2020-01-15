@@ -2,7 +2,7 @@
             <form action="">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Employee Details</p>
+                        <p class="modal-card-title">Customer Details</p>
                     </header>
                     <section class="modal-card-body">
 
@@ -40,7 +40,7 @@
                         </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button" type="button" @click="$parent.close()">Close</button>
+                        <b-button class="button" type="is-danger" @click="$parent.close()">Close</b-button>
                          <!-- <button class="button is-primary">Login</button> -->
                     </footer>
                 </div>

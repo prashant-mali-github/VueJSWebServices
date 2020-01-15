@@ -11,7 +11,7 @@
                 <option value="15">15 per page</option>
                 <option value="20">20 per page</option>
             </b-select>
-            <b-button @click="addNew" type="is-success">Add New</b-button>
+            <b-button @click="addNew" type="is-success">Add Customer</b-button>
             <!-- <div class="control"> -->
                 <!-- <button class="button" @click="currentPage = 2" :disabled="!isPaginated">Set page to 2</button> -->
             <!-- </div> -->
@@ -95,12 +95,12 @@
                     </router-link>
                 </b-table-column>
 
-                <!-- <b-table-column label="Delete">
+                <b-table-column label="Delete">
                     <router-link
                      :to="{name:'deleteUser', params: {id: props.row.c_id }}"
                     style="cursor: pointer"><b-button type="is-danger">Delete</b-button></router-link>
-                </b-table-column>    -->
-                <b-table-column label="Delete">
+                </b-table-column>   
+                <!-- <b-table-column label="Delete">
                     <b-button type="is-danger"
                         @click="isComponentModalActive = true;load_data(props.row)">
                         Delete
@@ -112,7 +112,7 @@
                             aria-modal>
                         <delete-form v-bind="formProps"></delete-form>
                     </b-modal>
-                </b-table-column>
+                </b-table-column> -->
             </template>
         </b-table>
     </section>
@@ -120,7 +120,7 @@
 
 <script>
     import ModalForm from './FormComponent.vue'
-    import DeleteForm from './DeleteModal.vue'
+    // import DeleteForm from './DeleteModal.vue'
     export default {
         data() {
             return {
@@ -151,8 +151,8 @@
             this.showAll()
         }, 
         components:{
-            ModalForm,
-            DeleteForm
+            ModalForm
+            // DeleteForm
         },
         methods:{
             showAll() {

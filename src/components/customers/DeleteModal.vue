@@ -40,7 +40,7 @@
                         </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button class="button" type="is-danger" @click="delete_data(id=id);$parent.close()">Delete</b-button>
+                        <b-button class="button" type="is-danger" @click="delete_data(id=id)">Delete</b-button>
                         <b-button class="button" type="is-success" @click="$parent.close()">Cancel</b-button>
                          <!-- <button class="button is-primary">Login</button> -->
                     </footer>
@@ -53,27 +53,39 @@ export default {
     props:['id','name', 'address', 'email', 'mno'],
     methods:{
         backTo(){
-            this.$router.push('/allpagination')
+            this.$router.push('/')
         },
         danger() {
                 this.$buefy.toast.open({
                     duration: 5000,
-                    message: `Employee deleted successfully`,
+                    message: `Customer deleted successfully`,
                     position: 'is-bottom',
                     type: 'is-danger'
                 })
         },
-        delete_data(id){
+        // delete_data(id){
+        //     this.$http.delete(`http://prashantrestapi.herokuapp.com/api/customers/${id}`)
+        //         .then(() => {
+        //             this.danger();
+        //         })
+        //         .catch(err => {
+        //         // eslint-disable-next-line
+        //         console.log(err)
+        //         })   
+        // },
+        delete_data(id) {
+            // do here a post request ... 
             this.$http.delete(`http://prashantrestapi.herokuapp.com/api/customers/${id}`)
-                .then(() => {
-                    this.danger();
-                    this.$router.push('/')
-                })
-                .catch(err => {
-                // eslint-disable-next-line
-                console.log(err)
-                })   
-        }
+            .then(() => {
+                this.$parent.close();
+                this.danger();
+                this.backTo();
+            })
+            .catch(err => {
+            // eslint-disable-next-line
+            console.log(err)
+            })   
+      },
     }
 }
 </script>
