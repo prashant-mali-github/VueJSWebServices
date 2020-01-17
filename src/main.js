@@ -6,6 +6,8 @@ import VueResource from 'vue-resource';
 import VueSweetalert2 from 'vue-sweetalert2';
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 const fs = require("fs");
 
 

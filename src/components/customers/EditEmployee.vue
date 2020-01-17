@@ -1,28 +1,49 @@
 <template>
     <div>
-        <h1>Edit customer Page</h1>
-        <p> {{ info }}</p>
+        <h1>Edit customer </h1>
         <!-- <router-link to="/delete/:id" tag="li" active-class="active"></router-link> -->
        <section>
-        <b-field label="Name">
-            <b-input v-model="customer.customer_name"></b-input>
+       <form  @submit.prevent="submit">
+        <b-field label="Name" :type="check_status($v.customer.customer_name)">
+            <b-input placeholder="Name" v-model.trim="$v.customer.customer_name.$model"></b-input>
         </b-field>
-        <b-field label="Address">
-            <b-input v-model="customer.c_address"></b-input>
+        <div class="error" v-if="!$v.customer.customer_name.required">Name is required</div>
+        <div class="error" v-if="!$v.customer.customer_name.minLength">Name must have at least {{$v.customer.customer_name.$params.minLength.min}} letters.</div>
+        <div class="error" v-if="!$v.customer.customer_name.alpha"> Name must contain character not a number</div>
+
+        <b-field label="Address" :type="check_status($v.customer.c_address)">
+            <b-input v-model="$v.customer.c_address.$model" type="text" placeholder="Address"></b-input>
         </b-field>
-        <b-field label="Email">
-            <b-input v-model="customer.c_email"></b-input>
+        <div class="error" v-if="!$v.customer.c_address.minLength">Name must have at least {{$v.customer.c_address.$params.minLength.min}} letters.</div>
+        <div class="error" v-if="!$v.customer.c_address.required">Address is required</div>
+
+       
+        <b-field label="Email" :type="check_status($v.customer.c_email)">
+            <b-input placeholder="Email" v-model.trim="$v.customer.c_email.$model"></b-input>
         </b-field>
-        <b-field label="Contact">
-            <b-input v-model="customer.c_mobileno"></b-input>
+        <div class="error" v-if="!$v.customer.c_email.required">Email is required</div>
+        <div class="error" v-if="!$v.customer.c_email.email">Invalid Id please enter valid email id</div>
+
+        <!-- <b-field label="Email">
+            <b-input v-model="customer.c_email" type="text"></b-input>
+        </b-field> -->
+        <b-field label="Mobile" :type="check_status($v.customer.c_mobileno)">
+            <b-input v-model="$v.customer.c_mobileno.$model" type="text" placeholder="Contact"></b-input>
         </b-field>
-        <b-button @click ="Update" type="is-success">Edit Customer</b-button>
+        <div class="error" v-if="!$v.customer.c_mobileno.required">Mobile number is required</div>
+        <div class="error" v-if="!$v.customer.c_mobileno.numeric">Mobile number contain only number not character</div>
+        <div class="error" v-if="!$v.customer.c_mobileno.phoneValidate"></div>
+        <!-- <b-button  @click.prevent="Update" type="">Edit</b-button> -->
+        <button type="submit" :disabled="submitStatus === 'PENDING'" id="edit-btn">Edit </button>
+
+        </form>
         </section>
     </div>
         <!-- <router-view></router-view> -->
 </template>
 
 <script>
+    import { required, minLength, alpha, email, numeric } from 'vuelidate/lib/validators'
     export default {
         data(){
             return {
@@ -33,8 +54,34 @@
                     c_mobileno:''
                 },
                 id:"",
-                info:''
+                info:'',
+                submitStatus:null
             }
+        },
+        validations: {
+        customer: {
+            customer_name: {
+                required,
+                alpha,
+                minLength: minLength(4)
+            },
+            c_address:{
+                required,
+                minLength: minLength(4)
+            },
+            c_email:{
+                required,
+                email
+            },
+            c_mobileno:{
+                required,
+                numeric,
+                phoneValidate:(v) =>{
+                    if(v.toString().length == 10) return true
+                    else return false
+                }
+            }
+        }
         },
          mounted() {
             // this.id = this.$route.params.id// id of the article
@@ -52,6 +99,12 @@
                     type: 'is-success'
                 })
             },
+            check_status(validation){
+                return{
+                    "is-danger":validation.$error,
+                    "is-success":validation.$dirty
+                }
+            },
             Update() {
                 this.id = this.$route.params.id // id of the article
                 this.$http.put(`http://prashantrestapi.herokuapp.com/api/customers/${this.id}`, { "customer":this.customer })
@@ -63,6 +116,19 @@
                 // eslint-disable-next-line
                 console.log(err)
                 })
+            },
+            submit() {
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                        this.Update()
+                        this.submitStatus = 'PENDING'
+                        setTimeout(() => {
+                        this.submitStatus = 'OK'
+                        }, 500)
+                }
+                }
             },
             deletecustomer(){
                 this.id = this.$route.params.id // id of the article
@@ -91,7 +157,21 @@
                     // eslint-disable-next-line
                     console.log(err)
                     })
-                }
             }
     }
 </script>
+
+<style scoped>
+#edit-btn {
+  background-color: purple;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>

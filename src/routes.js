@@ -1,7 +1,8 @@
 // import Home from './components/Home.vue';
 import Header from './components/Header.vue';
 // import AddEmployee from './components/employee/AddEmployee.vue';
-import AddEmployee from './components/customers/AddEmployee.vue';
+// import AddEmployee from './components/customers/AddEmployee.vue';
+import AddCustomer from './components/customers/AddCustomer.vue';
 
 // import EditEmployee from './components/employee/EditEmployee.vue';
 // import DeleteEmployee from './components/employee/DeleteEmployee.vue';
@@ -43,7 +44,7 @@ export const routes = [
 
     { path: '*', redirect: '/' },
     { path:'/addUser', name:'addUser', components:{
-        default: AddEmployee, 'header-top': Header } },
+        default: AddCustomer, 'header-top': Header } },
     // { path:'/', name:'allpagination', components:{
     //     default: AllPagination, 'header-top': Header } },
     // { path:'/pagination', name:'pagination', components:{
