@@ -1,7 +1,6 @@
 <template>
     <div>
-        <h1>Edit customer </h1>
-        <!-- <router-link to="/delete/:id" tag="li" active-class="active"></router-link> -->
+    <h1>Edit customer </h1>
        <section>
        <form  @submit.prevent="submit">
         <b-field label="Name" :type="check_status($v.customer.customer_name)">
@@ -24,22 +23,18 @@
         <div class="error" v-if="!$v.customer.c_email.required">Email is required</div>
         <div class="error" v-if="!$v.customer.c_email.email">Invalid Id please enter valid email id</div>
 
-        <!-- <b-field label="Email">
-            <b-input v-model="customer.c_email" type="text"></b-input>
-        </b-field> -->
         <b-field label="Mobile" :type="check_status($v.customer.c_mobileno)">
             <b-input v-model="$v.customer.c_mobileno.$model" type="text" placeholder="Contact"></b-input>
         </b-field>
         <div class="error" v-if="!$v.customer.c_mobileno.required">Mobile number is required</div>
         <div class="error" v-if="!$v.customer.c_mobileno.numeric">Mobile number contain only number not character</div>
         <div class="error" v-if="!$v.customer.c_mobileno.phoneValidate"></div>
-        <!-- <b-button  @click.prevent="Update" type="">Edit</b-button> -->
+
         <button type="submit" :disabled="submitStatus === 'PENDING'" id="edit-btn">Edit </button>
 
         </form>
         </section>
     </div>
-        <!-- <router-view></router-view> -->
 </template>
 
 <script>
@@ -83,17 +78,14 @@
             }
         }
         },
-         mounted() {
-            // this.id = this.$route.params.id// id of the article
-            // this.info = this.$route.params.user.id
-            //this.fetchData(this.id)
+        mounted() {
             this.customer.customer_name =  this.$route.params.user.customer_name
             this.customer.c_address =  this.$route.params.user.c_address
             this.customer.c_email =   this.$route.params.user.c_email
             this.customer.c_mobileno = this.$route.params.user.c_mobileno
         },
         methods: {
-             success() {
+            success() {
                 this.$buefy.toast.open({
                     message: 'customer edited',
                     type: 'is-success'
@@ -142,22 +134,6 @@
                     console.log(err)
                 })
             },
-            fetchData(id){
-                 this.$http.get(`http://dummy.restapiexample.com/api/v1/customer/${id}`)
-                    .then(res => {
-                    // eslint-disable-next-line
-                    const { customer_name, customer_salary, customer_age } = res.data
-                    this.customer.name = customer_name
-                    this.customer.salary = customer_salary
-                    this.customer.age = customer_age
-                    // eslint-disable-next-line
-                   
-                    })
-                    .catch(err => {
-                    // eslint-disable-next-line
-                    console.log(err)
-                    })
-            }
     }
 </script>
 
